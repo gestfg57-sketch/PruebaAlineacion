@@ -14,7 +14,7 @@
  
   body {
     font-family: 'Anton', sans-serif;
-    background: #0ea5e9;
+    background: #0ea5e9;  /* 💙 Fondo azul */
     color: white;
     overflow: hidden;
     height: 100vh;
@@ -22,7 +22,6 @@
     display: flex;
   }
 
-  /* 🟦 Contenedor principal: campo + lista suplentes */
   .main-container {
     display: flex;
     width: 100%;
@@ -60,7 +59,6 @@
   .sub {
     font-size: 26px;
     text-shadow: 2px 2px 6px rgba(0,0,0,0.7);
-    animation: fadeIn 1s ease forwards;
   }
 
   .field-lines {
@@ -109,13 +107,11 @@
     font-weight: bold;
     text-shadow: 4px 4px 12px rgba(0, 0, 0, 1);
     transform: translate(-50%, -50%);
-    animation: playerAppear 0.6s ease forwards;
     z-index: 50;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 5px;
-    opacity: 0;
   }
 
   .player .emoji {
@@ -123,46 +119,11 @@
     filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.8));
   }
 
-  @keyframes playerAppear {
-    from {
-      opacity: 0;
-      transform: translate(-50%, -50%) scale(0.7);
-    }
-    to {
-      opacity: 1;
-      transform: translate(-50%, -50%) scale(1);
-    }
-  }
-
-  #rober {
-    top: 50%;
-    left: 60%;
-    animation-delay: 1.4s;
-  }
-
-  #luis {
-    top: 28%;
-    left: 45%;
-    animation-delay: 1.0s;
-  }
-
-  #polaco {
-    top: 72%;
-    left: 45%;
-    animation-delay: 1.2s;
-  }
-
-  #culera {
-    top: 50%;
-    left: 28%;
-    animation-delay: 1.6s;
-  }
-
-  #gironda {
-    top: 50%;
-    left: 8%;
-    animation-delay: 0.8s;
-  }
+  #rober { top: 50%; left: 60%; }
+  #luis { top: 28%; left: 45%; }
+  #polaco { top: 72%; left: 45%; }
+  #culera { top: 50%; left: 28%; }
+  #gironda { top: 50%; left: 8%; }
 </style>
 </head>
 <body>
@@ -182,38 +143,54 @@
         <div class="team-name">Jarandilla FS</div>
       </div>
 
-      <div class="player" id="rober">
-        15. Rober
-        <div class="emoji">🎯</div>
-      </div>
-      <div class="player" id="luis">
-         7. Luis
-        <div class="emoji">⚡</div>
-      </div>
-      <div class="player" id="polaco">
-        10. Pola
-        <div class="emoji">⚡</div>
-      </div>
-      <div class="player" id="culera">
-        14. Culera
-        <div class="emoji">🛡️</div>
-      </div>
-      <div class="player" id="gironda">
-        13. Gironda
-        <div class="emoji">🧤</div>
-      </div>
+      <!-- Jugadores (se rellenarán desde Google Sheets) -->
+      <div class="player" id="rober">Jugador 1<div class="emoji">🎯</div></div>
+      <div class="player" id="luis">Jugador 2<div class="emoji">⚡</div></div>
+      <div class="player" id="polaco">Jugador 3<div class="emoji">⚡</div></div>
+      <div class="player" id="culera">Jugador 4<div class="emoji">🛡️</div></div>
+      <div class="player" id="gironda">Jugador 5<div class="emoji">🧤</div></div>
     </div>
 
     <div class="subs-container">
       <div class="subs-title">Suplentes</div>
-      <div class="sub">12. Luisi</div>
-      <div class="sub">4. Pablo Z</div>
-      <div class="sub">8. Morán</div>
-      <div class="sub">9. Álex</div>
-      <div class="sub">11. Alberto</div>
-      <div class="sub">99. Guille</div>
-
+      <div class="sub">Cargando...</div>
     </div>
   </div>
+
+  <script>
+    async function cargarAlineacion() {
+      // 🔗 Pega aquí tu enlace de Google Sheets publicado como CSV
+      const url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSwqsA1ZMrBMyZ77pobNzJeG_fm36A1OuT8RmddQNxJczMfChLozhCwVf9oMHdbCdFtDKdd_yVjCiyP/pubhtml";
+
+      try {
+        const resp = await fetch(url);
+        const data = await resp.text();
+
+        const filas = data.trim().split("\n").map(r => r.split(","));
+        const titulares = filas.slice(1).map(f => f[0]).filter(Boolean);
+        const suplentes = filas.slice(1).map(f => f[1]).filter(Boolean);
+
+        // Rellenar titulares
+        const ids = ["rober", "luis", "polaco", "culera", "gironda"];
+        titulares.forEach((nombre, i) => {
+          if (ids[i]) {
+            const el = document.getElementById(ids[i]);
+            if (el) el.childNodes[0].nodeValue = nombre;
+          }
+        });
+
+        // Rellenar suplentes
+        const listaSuplentes = document.querySelector(".subs-container");
+        listaSuplentes.innerHTML = `
+          <div class="subs-title">Suplentes</div>
+          ${suplentes.map(s => `<div class="sub">${s}</div>`).join("")}
+        `;
+      } catch (err) {
+        console.error("Error al cargar la alineación:", err);
+      }
+    }
+
+    cargarAlineacion();
+  </script>
 </body>
 </html>
