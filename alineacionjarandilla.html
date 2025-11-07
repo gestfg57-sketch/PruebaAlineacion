@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jarandilla FS - Alineación</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Anton', sans-serif;
+    background: #1a4f7a;
+    color: white;
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+  }
+
+  .field-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+      #2171b5 0%, #3a8dd1 2.5%, 
+      #2171b5 2.5%, #2171b5 5%,
+      #3a8dd1 5%, #3a8dd1 7.5%,
+      #2171b5 7.5%, #2171b5 10%,
+      #3a8dd1 10%, #3a8dd1 12.5%,
+      #2171b5 12.5%, #2171b5 15%,
+      #3a8dd1 15%, #3a8dd1 17.5%,
+      #2171b5 17.5%, #2171b5 20%,
+      #3a8dd1 20%, #3a8dd1 22.5%,
+      #2171b5 22.5%, #2171b5 25%,
+      #3a8dd1 25%, #3a8dd1 27.5%,
+      #2171b5 27.5%, #2171b5 30%,
+      #3a8dd1 30%, #3a8dd1 32.5%,
+      #2171b5 32.5%, #2171b5 35%,
+      #3a8dd1 35%, #3a8dd1 37.5%,
+      #2171b5 37.5%, #2171b5 40%,
+      #3a8dd1 40%, #3a8dd1 42.5%,
+      #2171b5 42.5%, #2171b5 45%,
+      #3a8dd1 45%, #3a8dd1 47.5%,
+      #2171b5 47.5%, #2171b5 50%,
+      #3a8dd1 50%, #3a8dd1 52.5%,
+      #2171b5 52.5%, #2171b5 55%,
+      #3a8dd1 55%, #3a8dd1 57.5%,
+      #2171b5 57.5%, #2171b5 60%,
+      #3a8dd1 60%, #3a8dd1 62.5%,
+      #2171b5 62.5%, #2171b5 65%,
+      #3a8dd1 65%, #3a8dd1 67.5%,
+      #2171b5 67.5%, #2171b5 70%,
+      #3a8dd1 70%, #3a8dd1 72.5%,
+      #2171b5 72.5%, #2171b5 75%,
+      #3a8dd1 75%, #3a8dd1 77.5%,
+      #2171b5 77.5%, #2171b5 80%,
+      #3a8dd1 80%, #3a8dd1 82.5%,
+      #2171b5 82.5%, #2171b5 85%,
+      #3a8dd1 85%, #3a8dd1 87.5%,
+      #2171b5 87.5%, #2171b5 90%,
+      #3a8dd1 90%, #3a8dd1 92.5%,
+      #2171b5 92.5%, #2171b5 95%,
+      #3a8dd1 95%, #3a8dd1 97.5%,
+      #2171b5 97.5%, #2171b5 100%
+    );
+  }
+
+  .field-lines {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+  }
+
+  .header {
+    position: absolute;
+    top: 20px;
+    left: 30px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    z-index: 100;
+    animation: fadeIn 1s ease forwards 0.5s;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .logo {
+    width: 80px;
+    height: 80px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+  }
+
+  .team-name {
+    font-size: 36px;
+    letter-spacing: 3px;
+    text-shadow: 3px 3px 10px #000;
+    text-transform: uppercase;
+  }
+
+  .player {
+    position: absolute;
+    text-align: center;
+    font-size: 32px;
+    font-weight: bold;
+    text-shadow: 4px 4px 12px rgba(0, 0, 0, 1);
+    transform: translate(-50%, -50%);
+    animation: playerAppear 0.6s ease forwards;
+    z-index: 50;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .player .emoji {
+    font-size: 24px;
+    filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.8));
+  }
+
+  @keyframes playerAppear {
+    from {
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0.7);
+    }
+    to {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+  }
+
+  #rober {
+    top: 50%;
+    left: 60%;
+    animation-delay: 1.4s;
+  }
+
+  #luis {
+    top: 28%;
+    left: 45%;
+    animation-delay: 1.0s;
+  }
+
+  #polaco {
+    top: 72%;
+    left: 45%;
+    animation-delay: 1.2s;
+  }
+
+  #culera {
+    top: 50%;
+    left: 28%;
+    animation-delay: 1.6s;
+  }
+
+  #gironda {
+    top: 50%;
+    left: 8%;
+    animation-delay: 0.8s;
+  }
+</style>
+</head>
+<body>
+  <div class="field-container">
+    <svg class="field-lines" viewBox="0 0 1000 600" preserveAspectRatio="none">
+      <rect x="10" y="10" width="980" height="580" fill="none" stroke="white" stroke-width="3"/>
+      
+      <line x1="500" y1="10" x2="500" y2="590" stroke="white" stroke-width="3"/>
+      
+      <circle cx="500" cy="300" r="80" fill="none" stroke="white" stroke-width="3"/>
+      <circle cx="500" cy="300" r="3" fill="white"/>
+      
+      <rect x="10" y="150" width="120" height="300" fill="none" stroke="white" stroke-width="3"/>
+      <rect x="10" y="220" width="50" height="160" fill="none" stroke="white" stroke-width="3"/>
+      
+      <path d="M 130 210 Q 180 300 130 390" fill="none" stroke="white" stroke-width="3"/>
+      
+      <circle cx="100" cy="300" r="2" fill="white"/>
+      
+      <rect x="870" y="150" width="120" height="300" fill="none" stroke="white" stroke-width="3"/>
+      <rect x="940" y="220" width="50" height="160" fill="none" stroke="white" stroke-width="3"/>
+      
+      <path d="M 870 210 Q 820 300 870 390" fill="none" stroke="white" stroke-width="3"/>
+      
+      <circle cx="900" cy="300" r="2" fill="white"/>
+    </svg>
+
+    <div class="header">
+      <img src="logo.png" alt="Jarandilla FS" class="logo">
+      <div class="team-name">Jarandilla FS</div>
+    </div>
+
+    <div class="player" id="rober">
+      Rober
+      <div class="emoji">🎯</div>
+    </div>
+    <div class="player" id="luis">
+      Luis
+      <div class="emoji">⚡</div>
+    </div>
+    <div class="player" id="polaco">
+      Polaco
+      <div class="emoji">⚡</div>
+    </div>
+    <div class="player" id="culera">
+      Culera
+      <div class="emoji">🛡️</div>
+    </div>
+    <div class="player" id="gironda">
+      Gironda
+      <div class="emoji">🧤</div>
+    </div>
+  </div>
+</body>
+</html>
